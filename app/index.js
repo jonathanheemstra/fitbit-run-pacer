@@ -1,40 +1,39 @@
-var stopwatch = function(my_element_id) {
-	var $time = document.getElementById(my_element_id)
-	if(!$time) return
+import clock from "clock";
+import document from "document";
 
-	var api = {}
-	var duration = 50
-	var time = 0
-	var clocktimer
-	var h, m, s, ms
+let timmer = document.getElementById("timmer");
+let btnBr = document.getElementById("btn-br");
+let elapsedTime = {
+	seconds: 0,
+	minutes: 0,
+	hours: 0
+};
 
-	function pad(num, size) {
-	    var s = "0000" + String(num)
-	    return s.substr(s.length - size)
-	}
+let startTime;
+let isRunning = false;
 
-	function formatTime() {
-	    time += duration
-	    h = Math.floor( time / (60 * 60 * 1000) )
-	    m = Math.floor( time / (60 * 1000) % 60)
-	    s = Math.floor(  time / 1000 % 60 )
-	    ms = time % 1000 / 10
-	    return pad(h, 2) + ':' + pad(m, 2) + ':' + pad(s, 2) + ':' + pad(ms, 2)
-	}
+clock.granularity = 'seconds';
 
-	function update() {
-	    $time.innerHTML = formatTime()
-	}
+btnBr.onactivate = function(e) {
+	isRunning = !isRunning;
 
-	api.start = function() {
-	    clocktimer = setInterval(update, duration)
-	}
+	clock.ontick = function(e) {
+		if (!startTime) {
+			startTime = e.date.getTime();
+		}
+		let currentTime = e.date.getTime();
+	
+		secondsToHms(Math.floor((currentTime - startTime) / 1000));
+	
+		timmer.text = `${elapsedTime.hours ? elapsedTime.hours + ':' : ''}${elapsedTime.minutes}:${elapsedTime.seconds}`;
+	};
+}
 
-	api.stop = function() {
-	    clearInterval(clocktimer)
-	}
 
-	api.formatTime = formatTime
-
-	return api
+function secondsToHms(time) {
+	elapsedTime.hours = Math.floor(time / 3600) > 0 
+		? Math.floor(time / 3600)
+		: null;
+	elapsedTime.minutes = (`0${Math.floor(time % 3600 / 60)}`).slice(-2);
+	elapsedTime.seconds = (`0${Math.floor(time % 3600 % 60)}`).slice(-2);
 }

@@ -1,3 +1,12 @@
 <svg>
-  <rect id="background" />
+  <text id="timmer" x="50%" y="50%+15"
+      fill="white" font-size="75" font-family="System-Regular"
+      text-anchor="middle" text-length="20"></text>
+
+  <!-- BOTTOM RIGHT -->
+  <use id="btn-br" href="#combo-button-lower-right" fill="fb-peach">
+    <set href="combo-button-icon" attributeName="href" to="play.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="play_press.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
+  </use>
 </svg>
