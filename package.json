@@ -4,8 +4,8 @@
   "private": true,
   "license": "UNLICENSED",
   "devDependencies": {
-    "@fitbit/sdk": "~3.0.0",
-    "@fitbit/sdk-cli": "^1.5.0"
+    "@fitbit/sdk": "^3.1.0",
+    "@fitbit/sdk-cli": "^1.6.0"
   },
   "fitbit": {
     "appUUID": "29df8efb-7a43-4dcd-9d82-9ff6a05b08c3",
